@@ -9,7 +9,7 @@ class UserRequestController extends Controller
 {
     public function index(Request $request)
     {
-        $userRequests = userRequest::where('user_id', $request->user()->id)->get();
+        $userRequests = userRequest::where('user_id', $request->user()->id)->orderBy('id', 'desc')->get();
         return response($userRequests, 200);
     }
 
@@ -18,7 +18,6 @@ class UserRequestController extends Controller
         $request->validate([
             'title' => 'required',
             'question' => 'required',
-            // 'user_id' => 'required',
         ]);
 
         $userRequest = userRequest::create([
